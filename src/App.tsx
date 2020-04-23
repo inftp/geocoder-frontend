@@ -1,23 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import {ApolloProvider} from 'react-apollo';
 import './App.css';
 
+import InputWithClearButton from './components/InputWithClearButton';
+import SearchResults from './components/SearchResults';
+
 function App() {
+
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearchChange = (text: string) => {
+    setSearchText(text);
+    // TODO: Geocode search
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <InputWithClearButton
+            onClear={() => console.log('clear')}
+            onChange={(text) => handleSearchChange(text)}
+            value={searchText}
+          />
+        {
+          searchResults.length && (
+            <SearchResults />
+          )
+        }
       </header>
     </div>
   );
