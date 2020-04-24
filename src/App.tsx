@@ -11,16 +11,14 @@ function App() {
   const client = createClient();
 
   const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearchChange = (text: string) => {
     setSearchText(text);
-    // TODO: Geocode search
   }
 
   return (
     <ApolloProvider client={client}>
-      {/* <div className="App">
+      <div className="App">
         <header className="App-header">
           <InputWithClearButton
               onClear={() => console.log('clear')}
@@ -28,13 +26,12 @@ function App() {
               value={searchText}
             />
           {
-            searchResults.length && (
-              <SearchResults />
+            (searchText) && (
+              <SearchResults searchText={searchText} />
             )
           }
         </header>
-      </div> */}
-      <Users />
+      </div>
     </ApolloProvider>
 
   );
