@@ -74,11 +74,12 @@ const LeafletMap = (
         }));
       } else {
         // Methods that require map to be initialised
-
+        console.log('The map exists');
         let routeChanged = false;
         
         // If destination has changed
         if (JSON.stringify(dest) !== JSON.stringify(destProps)) {
+          console.log('Destination changed');
           // TODO: Place dest marker
           routeChanged = true;
           setDest(destProps);
@@ -86,6 +87,7 @@ const LeafletMap = (
             map.removeLayer(destMarker);
           }
           if (destProps) {
+            console.log('Setting a marker');
             setDestMarker(L.marker(destProps).addTo(map));
           }
         }
