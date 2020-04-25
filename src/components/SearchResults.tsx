@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
+import InferProps from '../types/InferProps';
+
 const SearchResultsPropTypes = {
   searchText: PropTypes.string.isRequired,
 }
 
 const SearchResults = (
-    { searchText }: PropTypes.InferProps<typeof SearchResultsPropTypes>
+    { searchText }: InferProps<typeof SearchResultsPropTypes>
   ): ReactElement => {
 
   const GET_ADDRESSES = `{
