@@ -9,10 +9,11 @@ import InferProps from '../types/InferProps';
 
 const SearchResultsPropTypes = {
   searchText: PropTypes.string.isRequired,
+  selection: PropTypes.func.isRequired,
 }
 
 const SearchResults = (
-    { searchText }: InferProps<typeof SearchResultsPropTypes>
+    { searchText, selection }: InferProps<typeof SearchResultsPropTypes>
   ): ReactElement => {
 
   const GET_ADDRESSES = `{
@@ -41,7 +42,12 @@ const SearchResults = (
       !!(searchText) && 
       Array.isArray(data.locations) &&
         data.locations.slice(0,5).map((location: {address: string}) => (
-          <div className="search-result" key={location.address}>
+          <div 
+            className="search-result"
+            role="button"
+            key={location.address}
+            onClick={selection(location)}
+          >
             {location.address}
           </div>
         ))

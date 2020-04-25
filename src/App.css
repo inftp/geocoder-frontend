@@ -59,6 +59,24 @@
   left: 25%;
 }
 
+.side-menu {
+  position: fixed;
+  width: 0;
+  top: 2.5vh;
+  bottom: 0;
+  background-color: chocolate;
+  transition: 0.5s;
+  overflow-x: hidden;
+}
+
+.side-menu.visible {
+  width: 50vw;
+}
+
+.side-menu >* {
+
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,11 +1,18 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import {ApolloProvider} from '@apollo/react-hooks';
 import {createClient} from '../lib/ApolloClient';
+
+import InferProps from '../types/InferProps';
 
 import InputWithClearButton from './InputWithClearButton';
 import SearchResults from './SearchResults';
 
-const SearchContainer = () => {
+const SearchContainerPropTypes = {
+  selection: PropTypes.func.isRequired,
+}
+
+const SearchContainer = ({selection}: InferProps<typeof SearchContainerPropTypes>) => {
   const client = createClient();
 
   const [searchText, setSearchText] = useState('');
@@ -26,9 +33,11 @@ const SearchContainer = () => {
           onChange={(text: string) => handleSearchChange(text)}
           value={searchText}
         />
-      <SearchResults searchText={searchReady ? searchText : ''} />
+      <SearchResults searchText={searchReady ? searchText : ''} selection={selection} />
     </ApolloProvider>
   );
 };
+
+SearchContainer.propTypes = SearchContainerPropTypes;
 
 export default SearchContainer;
