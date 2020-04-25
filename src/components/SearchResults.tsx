@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
-import { Query, QueryResult } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 
 const SearchResultsPropTypes = {
   searchText: PropTypes.string.isRequired,
@@ -19,25 +19,25 @@ const SearchResults = (
       }
     }`;
 
+  const { loading, error, data} = useQuery(gql(GET_ADDRESSES));
+
+  if (loading) return (
+    <i className="fas fa-spinner"></i>
+  );
+
+  if (error) return (
+    <div>
+      {`Error: ${error.message}`}
+    </div>
+  );
+
   return (
     <div className="search-results">
-      <Query query={gql(GET_ADDRESSES)}>
-        {({ loading, error, data}: QueryResult) => {
-          if (loading) return (
-            <i className="fas fa-spinner"></i>
-          );
-          if (error) return (
-            <div>
-              {`Error: ${error.message}`}
-            </div>
-          );
-          return data.locations.map((location: {address: string}) => (
-            <div className="search-result" key={location.address}>
-              {location.address}
-            </div>
-          ));
-        }}
-      </Query>
+      {data.locations.map((location: {address: string}) => (
+        <div className="search-result" key={location.address}>
+          {location.address}
+        </div>
+      ))}
     </div>
   )
 }

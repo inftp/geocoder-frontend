@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {ApolloProvider} from 'react-apollo';
+import {ApolloProvider} from '@apollo/react-hooks';
 import './App.css';
 import {createClient} from './lib/ApolloClient';
-import Users from './Users';
 
 import InputWithClearButton from './components/InputWithClearButton';
 import SearchResults from './components/SearchResults';
@@ -11,8 +10,13 @@ function App() {
   const client = createClient();
 
   const [searchText, setSearchText] = useState('');
+  const [searchReady, setSearchReady] = useState(false);
 
   const handleSearchChange = (text: string) => {
+    setTimeout(() => {
+      setSearchReady(true);
+    }, 750);
+    setSearchReady(false);
     setSearchText(text);
   }
 
@@ -26,7 +30,7 @@ function App() {
               value={searchText}
             />
           {
-            (searchText) && (
+            searchReady && !!(searchText) && (
               <SearchResults searchText={searchText} />
             )
           }
