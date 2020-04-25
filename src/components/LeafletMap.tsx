@@ -6,18 +6,40 @@ import 'leaflet/dist/leaflet.css';
 import InferProps from '../types/InferProps';
 
 const LeafletMapPropTypes = {
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired,
-  zoom: PropTypes.number.isRequired,
-}
+  init: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+    zoom: PropTypes.number.isRequired,
+  }).isRequired,
+  dest: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+  }),
+  orig: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+  }),
+  handleRoute: PropTypes.func,
+};
+
+const LeafletMapDefaultProps = {
+  dest: null,
+  orig: null,
+  handleRoute: () => null,
+};
 
 const LeafletMap = (
-    {lat, lng, zoom}: InferProps<typeof LeafletMapPropTypes>
+    props: InferProps<typeof LeafletMapPropTypes, typeof LeafletMapDefaultProps>
   ) => {
+    const {init: {lat, lng, zoom}, origProps, destProps} = props;
+
 
     let map: L.Map | null;
     let setMap: any;
     [map, setMap] = useState(null);
+
+    const [orig, setOrig] = useState(origProps);
+    const [dest, setDest] = useState(destProps);
 
     useEffect(() => {
       // If map not initialised, create
@@ -32,6 +54,20 @@ const LeafletMap = (
           ],
           zoomControl: false,
         }));
+      } else {
+        // Methods that require map to be initialised
+
+        let routeChanged = false;
+        // If destination has changed
+        // TODO: Place dest marker
+
+        // If origin has changed
+        // TODO: Place origin marker
+
+        // If both destination and origin exist and one of them has changed
+        // Draw route on map
+        // Call handleRoute
+
       }
     }, [lat, lng, zoom, map, setMap]);
 
@@ -42,5 +78,6 @@ const LeafletMap = (
   };
 
 LeafletMap.propTypes = LeafletMapPropTypes;
+LeafletMap.defaultProps = LeafletMapDefaultProps;
 
 export default LeafletMap;  
