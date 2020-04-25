@@ -12,12 +12,12 @@ const LeafletMapPropTypes = {
     zoom: PropTypes.number.isRequired,
   }).isRequired,
   dest: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired,
+    lat: PropTypes.number,
+    lng: PropTypes.number,
   }),
   orig: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired,
+    lat: PropTypes.number,
+    lng: PropTypes.number,
   }),
   handleRoute: PropTypes.func,
 };
@@ -39,6 +39,7 @@ const LeafletMap = (
   ) => {
     const {init: {lat, lng, zoom}, origProps, destProps} = props;
 
+    console.log({props});
 
     let map: L.Map | null;
     let setMap: any;
@@ -46,6 +47,15 @@ const LeafletMap = (
 
     const [orig, setOrig] = useState(origProps);
     const [dest, setDest] = useState(destProps);
+
+    let origMarker: L.Marker | null;
+    let setOrigMarker: any;
+    [origMarker, setOrigMarker] = useState(null);
+
+    let destMarker: L.Marker | null;
+    let setDestMarker: any;
+    [destMarker, setDestMarker] = useState(null);
+
 
     useEffect(() => {
       // If map not initialised, create
@@ -66,17 +76,28 @@ const LeafletMap = (
         let routeChanged = false;
         
         // If destination has changed
-        if (dest.lat !== destProps.lat || dest.lng !== destProps.lng) {
+        if (JSON.stringify(dest) !== JSON.stringify(destProps)) {
           // TODO: Place dest marker
           routeChanged = true;
           setDest(destProps);
+          if (destMarker) {
+            map.removeLayer(destMarker);
+          }
+          if (destProps) {
+            setDestMarker(L.marker(destProps).addTo(map));
+          }
         }
 
         // If origin has changed
-        if (orig.lat !== origProps.lat || orig.lng !== origProps.lng) {
-          // TODO: Place origin marker
+        if (JSON.stringify(orig) !== JSON.stringify(origProps)) {
           routeChanged = true;
           setOrig(origProps);
+          if (origMarker) {
+            map.removeLayer(origMarker);
+          }
+          if (origProps) {
+            setOrigMarker(L.marker(origProps).addTo(map));
+          }
         }
 
         // If both destination and origin exist and one of them has changed
@@ -86,7 +107,23 @@ const LeafletMap = (
         }
 
       }
-    }, [lat, lng, zoom, map, setMap, dest, setDest, destProps, orig, setOrig, origProps]);
+    }, [
+      lat,
+      lng,
+      zoom,
+      map,
+      setMap,
+      dest,
+      setDest,
+      destProps,
+      orig,
+      setOrig,
+      origProps,
+      destMarker,
+      setDestMarker,
+      origMarker,
+      setOrigMarker,
+    ]);
 
 
     return (
