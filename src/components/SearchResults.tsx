@@ -33,11 +33,15 @@ const SearchResults = (
 
   return (
     <div className="search-results">
-      {!!(searchText) && data.locations.map((location: {address: string}) => (
-        <div className="search-result" key={location.address}>
-          {location.address}
-        </div>
-      ))}
+      {
+      !!(searchText) && 
+      Array.isArray(data.locations) &&
+        data.locations.slice(0,5).map((location: {address: string}) => (
+          <div className="search-result" key={location.address}>
+            {location.address}
+          </div>
+        ))
+      }
     </div>
   )
 }

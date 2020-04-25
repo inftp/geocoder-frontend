@@ -1,41 +1,15 @@
-import React, {useState} from 'react';
-import {ApolloProvider} from '@apollo/react-hooks';
+import React from 'react';
 import './App.css';
-import {createClient} from './lib/ApolloClient';
 
-import InputWithClearButton from './components/InputWithClearButton';
-import SearchResults from './components/SearchResults';
+import SearchContainer from './components/SearchContainer';
 
 function App() {
-  const client = createClient();
-
-  const [searchText, setSearchText] = useState('');
-  const [searchReady, setSearchReady] = useState(false);
-
-  const handleSearchChange = (text: string) => {
-    setTimeout(() => {
-      setSearchReady(true);
-    }, 750);
-    setSearchReady(false);
-    setSearchText(text);
-  }
-
   return (
-    <ApolloProvider client={client}>
       <div className="App">
         <header className="App-header">
-          <InputWithClearButton
-              onClear={() => console.log('clear')}
-              onChange={(text) => handleSearchChange(text)}
-              value={searchText}
-            />
-          {
-            <SearchResults searchText={searchReady ? searchText : ''} />
-          }
+          <SearchContainer />
         </header>
       </div>
-    </ApolloProvider>
-
   );
 }
 

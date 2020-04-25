@@ -1,10 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import InferProps from '../types/InferProps';
 import KEY_CODES from '../lib/constants/KeyCodes';
 
-const InputWithClearButton = (props) => {
-  const { onClear, onChange, value } = props;
+const InputWithClearButtonPropTypes = {
+  onClear: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
+};
+
+const InputWithClearButtonDefaultProps = {
+  value: '',
+};
+
+const InputWithClearButton = (
+  { onClear, onChange, value }: 
+    InferProps<
+      typeof InputWithClearButtonPropTypes,
+      typeof InputWithClearButtonDefaultProps
+    >) => {
   return (
     <div className="input-with-clear-button">
       <input
@@ -27,20 +42,10 @@ const InputWithClearButton = (props) => {
           }
         }}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
       />
     </div>
   );
-};
-
-InputWithClearButton.propTypes = {
-  onClear: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string,
-};
-
-InputWithClearButton.defaultProps = {
-  value: '',
 };
 
 export default InputWithClearButton;
