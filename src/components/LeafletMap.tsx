@@ -39,8 +39,6 @@ const LeafletMap = (
   ) => {
     const {init: {lat, lng, zoom}, origProps, destProps} = props;
 
-    console.log({props});
-
     let map: L.Map | null;
     let setMap: any;
     [map, setMap] = useState(null);

@@ -46,7 +46,7 @@ const SearchResults = (
             className="search-result"
             role="button"
             key={location.address}
-            onClick={selection(location)}
+            onClick={() => selection(location)}
           >
             {location.address}
           </div>
