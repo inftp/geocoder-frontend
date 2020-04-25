@@ -23,8 +23,14 @@ const LeafletMapPropTypes = {
 };
 
 const LeafletMapDefaultProps = {
-  dest: null,
-  orig: null,
+  dest: {
+    lat: null,
+    lng: null,
+  },
+  orig: {
+    lat: null,
+    lng: null,
+  },
   handleRoute: () => null,
 };
 
@@ -58,18 +64,29 @@ const LeafletMap = (
         // Methods that require map to be initialised
 
         let routeChanged = false;
+        
         // If destination has changed
-        // TODO: Place dest marker
+        if (dest.lat !== destProps.lat || dest.lng !== destProps.lng) {
+          // TODO: Place dest marker
+          routeChanged = true;
+          setDest(destProps);
+        }
 
         // If origin has changed
-        // TODO: Place origin marker
+        if (orig.lat !== origProps.lat || orig.lng !== origProps.lng) {
+          // TODO: Place origin marker
+          routeChanged = true;
+          setOrig(origProps);
+        }
 
         // If both destination and origin exist and one of them has changed
-        // Draw route on map
-        // Call handleRoute
+        if (routeChanged && destProps.lng && destProps.lat && origProps.lng && origProps.lat) {
+          // TODO: Draw route on map
+          // TODO: Call handleRoute
+        }
 
       }
-    }, [lat, lng, zoom, map, setMap]);
+    }, [lat, lng, zoom, map, setMap, dest, setDest, destProps, orig, setOrig, origProps]);
 
 
     return (
