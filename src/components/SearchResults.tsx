@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+import '@fortawesome/fontawesome-free/css/all.css';
+
 
 import InferProps from '../types/InferProps';
 

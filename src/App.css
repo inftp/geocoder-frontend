@@ -40,6 +40,25 @@
   right: 0;
 }
 
+.burger {
+  position: fixed;
+  top: 2.5vh;
+  left: 0;
+  background-color: white;
+  box-shadow: 2px 2px 7px;
+  border-radius: 0 5px 5px 0;
+  /* TODO: Media queries, looks too big in desktop */
+  width: 10vmax;
+  height: 10vmax;
+  font-size: 5vmax;
+}
+
+.burger-icon {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
