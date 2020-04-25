@@ -30,9 +30,7 @@ function App() {
               value={searchText}
             />
           {
-            searchReady && !!(searchText) && (
-              <SearchResults searchText={searchText} />
-            )
+            <SearchResults searchText={searchReady ? searchText : ''} />
           }
         </header>
       </div>
