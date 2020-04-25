@@ -56,6 +56,10 @@ const LeafletMap = (
     let setDestMarker: any;
     [destMarker, setDestMarker] = useState(null);
 
+    let route: L.Layer | null;
+    let setRoute: any;
+    [route, setRoute] = useState(null);
+
 
     useEffect(() => {
       // If map not initialised, create
@@ -123,6 +127,8 @@ const LeafletMap = (
       setDestMarker,
       origMarker,
       setOrigMarker,
+      route,
+      setRoute,
     ]);
 
 
