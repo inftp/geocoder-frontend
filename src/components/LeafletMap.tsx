@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 
 import InferProps from '../types/InferProps';
 
+// TODO: fix to use refs when comparing old props
 
 const LeafletMapPropTypes = {
   init: PropTypes.shape({

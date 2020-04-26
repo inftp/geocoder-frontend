@@ -1,3 +1,6 @@
+// NOTE: Import this file instead of Leaflet directly
+// Fixes issue with leaflet markers
+
 import L from 'leaflet';
 
 delete L.Icon.Default.prototype._getIconUrl;
