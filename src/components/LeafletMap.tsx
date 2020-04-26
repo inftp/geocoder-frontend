@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import L from 'leaflet';
+import L from '../lib/LeafletFix';
 import 'leaflet/dist/leaflet.css';
 
 import InferProps from '../types/InferProps';
+
 
 const LeafletMapPropTypes = {
   init: PropTypes.shape({
@@ -11,33 +12,27 @@ const LeafletMapPropTypes = {
     lng: PropTypes.number.isRequired,
     zoom: PropTypes.number.isRequired,
   }).isRequired,
-  dest: PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number,
-  }),
-  orig: PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number,
-  }),
+  destLat: PropTypes.number,
+  destLng: PropTypes.number,
+  origLat: PropTypes.number,
+  origLng: PropTypes.number,
   handleRoute: PropTypes.func,
 };
 
 const LeafletMapDefaultProps = {
-  dest: {
-    lat: null,
-    lng: null,
-  },
-  orig: {
-    lat: null,
-    lng: null,
-  },
+  destLat: null,
+  destLng: null,
+  origLat: null,
+  origLng: null,
   handleRoute: () => null,
 };
 
 const LeafletMap = (
     props: InferProps<typeof LeafletMapPropTypes, typeof LeafletMapDefaultProps>
   ) => {
-    const {init: {lat, lng, zoom}, origProps, destProps} = props;
+    const {init: {lat, lng, zoom}} = props;
+    const origProps = {lat: props.origLat, lng: props.origLng};
+    const destProps = {lat: props.destLat, lng: props.destLng};
 
     let map: L.Map | null;
     let setMap: any;
@@ -89,6 +84,7 @@ const LeafletMap = (
           if (destProps) {
             console.log('Setting a marker');
             setDestMarker(L.marker(destProps).addTo(map));
+            map.panTo(destProps);
           }
         }
 

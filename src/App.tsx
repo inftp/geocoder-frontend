@@ -10,9 +10,9 @@ function App() {
 
   const [menuVisible, setMenuVisible] = useState(false);
 
-  let dest: {lat: number, lng: number} | null;
+  let dest: {lat: number | null, lng: number | null};
   let setDest: any;
-  [dest, setDest] = useState(null);
+  [dest, setDest] = useState({lat: null, lng: null});
 
   const handleLocation = (location: {
     address: string,
@@ -29,7 +29,7 @@ function App() {
 
         {/* <header className="App-header">
         </header> */}
-        <LeafletMap init={{lat: -37.815018, lng: 144.946014, zoom: 13}} dest={dest} />
+        <LeafletMap init={{lat: -37.815018, lng: 144.946014, zoom: 13}} destLat={dest.lat} destLng={dest.lng} />
         <Burger action={() => setMenuVisible(true)} />
         <SideMenu visible={menuVisible} close={() => setMenuVisible(false)} >
           <SearchContainer selection={(res) => handleLocation(res)}/>
