@@ -19,10 +19,10 @@ const SideMenuDefaultProps = {
 
 const SideMenu = ({visible, close, children}: React.PropsWithChildren<ISideMenuProps>) => (
   <div className={`side-menu${visible ? ' visible' : ''}`}>
+    {children}
     <div className="close-button" role="button" onClick={close}>
       <i className="fas fa-times"></i>
     </div>
-    {children}
   </div>
 );
 

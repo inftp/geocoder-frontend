@@ -62,20 +62,63 @@
 .side-menu {
   position: fixed;
   width: 0;
-  top: 2.5vh;
+  top: 0;
   bottom: 0;
   background-color: white;
   transition: 0.5s;
   overflow-x: hidden;
+  display: flex;
+  /* align-items: top; */
+  justify-content: space-between;
+  font-size: 1.5em;
+  padding-top: 0.5em;
 }
 
 .side-menu.visible {
   width: 75vw;
+  padding: 0.5em;
+  box-shadow: 2px 2px 7px;
 }
 
-.side-menu >* {
-
+#search {
+  width: 60vw;
+  font-size: 1em;
 }
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: #f0f0f0; */
+  margin: 0.2em;
+  font-size: 0.7em;
+  padding: 0.2em;
+}
+
+.search-result >* {
+  margin: 0.2em;
+}
+
+@media only screen and (min-width: 768px) {
+  .burger {
+    width: 5vmax;
+    height: 5vmax;
+    font-size: 3vmax;
+  }
+  .side-menu.visible {
+    width: 25vw;
+  }
+
+  #search {
+    width: 20vw;
+  }
+}
+
 
 @keyframes App-logo-spin {
   from {

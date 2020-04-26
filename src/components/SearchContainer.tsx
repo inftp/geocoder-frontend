@@ -28,12 +28,14 @@ const SearchContainer = ({selection}: InferProps<typeof SearchContainerPropTypes
 
   return (
     <ApolloProvider client={client}>
-      <InputWithClearButton 
-          onClear={() => console.log('clear')}
-          onChange={(text: string) => handleSearchChange(text)}
-          value={searchText}
-        />
-      <SearchResults searchText={searchReady ? searchText : ''} selection={selection} />
+      <div className="search-container">
+        <InputWithClearButton 
+            onClear={() => console.log('clear')}
+            onChange={(text: string) => handleSearchChange(text)}
+            value={searchText}
+          />
+        <SearchResults searchText={searchReady ? searchText : ''} selection={selection} />
+      </div>
     </ApolloProvider>
   );
 };

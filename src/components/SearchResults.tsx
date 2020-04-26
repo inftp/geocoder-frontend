@@ -48,7 +48,8 @@ const SearchResults = (
             key={location.address}
             onClick={() => selection(location)}
           >
-            {location.address}
+            <i className="fas fa-map-marker-alt"></i>
+            <span className="address">{location.address}</span>
           </div>
         ))
       }
